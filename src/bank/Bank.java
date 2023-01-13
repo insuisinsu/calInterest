@@ -78,10 +78,7 @@ public class Bank {
 	 * deposit(보증금) 에서 limit(한도) 를 뺀 creditLoan(신용대출) 에서 mine(보유금)을 다시 뺀다
 	 */
 	private void splitCreditInterest() {
-		System.out.println(this.creditLoan);
-		System.out.println(this.mine);
 		this.creditLoan = this.creditLoan - this.mine;
-		System.out.println(this.creditLoan);
 	}
 }
 class LH extends Bank {

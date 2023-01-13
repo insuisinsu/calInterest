@@ -4,33 +4,14 @@ public class Bank {
 	String name;
 	long limit;
 	long deposit;
+	long mine;
 	double ratio;
 	double loanRate;
-	double creditRate = 8.0;
+	double creditRate = 0.08;
 	long loan;
 	long creditLoan;
 	long loanInterest;
 	long creditInterest;
-//	double creditLoan;
-	
-	
-	
-//	public double getRatio() {return ratio;}
-//	public void setRatio(double ratio) {this.ratio = ratio;}
-//	public long getLimit() {return limit;}
-//	public void setLimit(long limit) {this.limit = limit;}
-//	public double getLoanRate() {return loanRate;}
-//	public void setLoanRate(double loanRate) {this.loanRate = loanRate;}
-//	public double getCreditRate() {return creditRate;}
-//	public void setCreditRate(double creditRate) {this.creditRate = creditRate;}
-//	public long getDeposit() {return deposit;}
-//	public void setDeposit(long deposit) {this.deposit = deposit;}
-//	public double getLoan() {return loan;}
-//	public void setLoan(double loan) {this.loan = loan;}
-//	public double getMine() {return mine;}
-//	public void setMine(double mine) {this.mine = mine;}
-//	public double getCreditLoan() {return creditLoan;}
-//	public void setCreditLoan(double creditLoan) {this.creditLoan = creditLoan;}
 	
 	@Override
 	public String toString() {
@@ -42,11 +23,20 @@ public class Bank {
 	 * @param deposit
 	 * @return 
 	 */
-	public Bank calcInterest(long deposit) {
-		this.deposit = deposit;
+	public Bank calcInterest(long deposit, long mine) {
+		this.setMoney(deposit, mine);
 		this.splitDeposit(deposit);
 		this.calcInterest();
 		return this;
+	}
+	/**
+	 * deposit(보증금) 과 mine(보유금) 을 입력받아 저장한다.
+	 * @param deposit
+	 * @param mine
+	 */
+	private void setMoney(long deposit, long mine) {
+		this.deposit = deposit;
+		this.mine = mine;
 	}
 	/**
 	 * deposit 을 loan 과 mine 에 나누어 담기
@@ -67,7 +57,7 @@ public class Bank {
 	 */
 	private void calcInterest() {
 		this.setLoanInterest();
-		this.setcMineInterest();
+		this.setCreditInterest();
 	}
 	/**
 	 * 전세대출(loan)의 연이자 계산
@@ -76,10 +66,22 @@ public class Bank {
 		this.loanInterest = (long) (this.loan * this.loanRate);
 	}
 	/**
-	 * 신용대출(mine)의 연이자 계산
+	 * 신용대출(creditLoan)의 연이자 계산
 	 */
-	private void setcMineInterest() {
+	private void setCreditInterest() {
+		// creditInterest(신용대출) 에서 내가 가진 돈을 빼야한다.
+		this.splitCreditInterest();
 		this.creditInterest = (long) (this.creditLoan * this.creditRate);
+	}
+	/**
+	 * creditLoan 에서 mine 을 뺀, 실제 신용대출금 계산
+	 * deposit(보증금) 에서 limit(한도) 를 뺀 creditLoan(신용대출) 에서 mine(보유금)을 다시 뺀다
+	 */
+	private void splitCreditInterest() {
+		System.out.println(this.creditLoan);
+		System.out.println(this.mine);
+		this.creditLoan = this.creditLoan - this.mine;
+		System.out.println(this.creditLoan);
 	}
 }
 class LH extends Bank {

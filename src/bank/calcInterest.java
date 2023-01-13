@@ -7,7 +7,7 @@ public class calcInterest {
 		
 		Scanner sc = new Scanner(System.in);
 		long deposit = sc.nextLong();
-		long mine = 0;
+		long mine = sc.nextLong();
 		sc.close();
 		
 		Bank lh = new LH();
@@ -21,13 +21,13 @@ public class calcInterest {
 		
 		// 실행
 		for(int i = 0; i < bankList.length; i++) {
-			bankList[i].calcInterest(deposit);
+			bankList[i].calcInterest(deposit, mine);
 		}
 		// 출력
 		System.out.printf("전세금 : "+deposit +"   보유금 : "+mine);
 		System.out.println();
 		System.out.println("-------------------------------------------------------------------------------------------------------");
-		System.out.printf("%16s %15s %15s %15s %15s %15s", "bank", "loan", "loanInterest", "credit", "creditInterest", "TotalInterest");
+		System.out.printf("%16s %15s %15s %15s %15s %15s", "bank", "loan", "loanInterest", "creditLoan", "creditInterest", "TotalInterest");
 		System.out.println();
 		System.out.println("-------------------------------------------------------------------------------------------------------");
 		for(int i = 0; i < bankList.length; i++) {
